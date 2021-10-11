@@ -13,6 +13,9 @@ switch(SM) {
 		if((PINA&0x07)==0x04) {
 			SM=PressPound;
 		}
+		else if((PINA&0x06)==0x06){
+			SM=lockDoor;
+		}
 		else if ((PINA&0x87)==0x80) {
 			SM=lockDoor;
 		}
