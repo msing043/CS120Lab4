@@ -47,7 +47,7 @@ void buttonMachine() {
 		if((PINA & 0x01)==0x01) {
 	        	SM=Addition;
                 }
-		else if((PINA&0x02)==0x02){
+		else if((PINA&0x03)==0x03){
 			SM=Reset;
 		}
                 else{
@@ -59,7 +59,7 @@ void buttonMachine() {
                 if((PINA & 0x02)==0x02) {
     	            SM=Subtraction;
                 }
-		else if((PINA&0x01)==0x01){
+		else if((PINA&0x03)==0x03){
 		    SM=Reset;
 		}
                 else{
