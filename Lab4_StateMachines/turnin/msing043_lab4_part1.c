@@ -7,11 +7,11 @@
 #ifdef _SIMULATE_
 #include "simAVRHeader.h"
 #endif
-enum StateMachine{Begin, Depressed, PressWait, Depressed, DepressedWait} SM;
+enum StateMachine{Begin, Press, PressWait, Depressed, DepressedWait} SM;
 void buttonMachine(){
 switch (SM) {
 	case Begin:
-	SM=Pressed;
+	SM=Press;
 break;
 case Press:
 	if ((PINA&0x01)==0x01) {
