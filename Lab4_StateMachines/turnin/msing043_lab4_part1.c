@@ -7,22 +7,22 @@
 #ifdef _SIMULATE_
 #include "simAVRHeader.h"
 #endif
-enum SM_1{Initial, Pressed, PressWait, Depressed, DepressedWait} SM;
-void timerTick(){
+enum StateMachine{Begin, Depressed, PressWait, Depressed, DepressedWait} SM;
+void buttonMachine(){
 switch (SM) {
-	case Initial:
+	case Begin:
 	SM=Pressed;
 break;
-case Pressed:
-	if ((PINA & 0x01) == 0x01) {
-		SM=Pressed;
+case Press:
+	if ((PINA&0x01)==0x01) {
+		SM=Press;
 		}
 		else {
 		SM=PressWait;
 		}
                 break;
 case PressWait:
-	if ((PINA & 0x01) == 0x01) {
+	if ((PINA&0x01)==0x01) {
         	 SM=Depressed;
                  }
                  else {
@@ -30,7 +30,7 @@ case PressWait:
                  }
                  break;
 case Depressed:
-	if((PINA & 0x01)== 0x01) {
+	if((PINA&0x01)==0x01) {
 		SM=Depressed;
 		}
 		else {
@@ -38,31 +38,31 @@ case Depressed:
 		}
 		break;
 case DepressedWait:
-	if((PINA & 0x01)==0x01){
-		SM=Pressed;
+	if((PINA&0x01)==0x01){
+		SM=Press;
 		}
 		else{
 		SM=DepressedWait;
 		}
 		break;
 default:
-SM=Initial;
+SM=Begin;
 break;
 }
 switch (SM){
-case Initial:
+case Begin:
 PORTB=0x01;
 break;
 
-case Pressed:
-PORTB=0x01;
+case Press:
+PORTB=0x02;
 break;
 
 case PressWait:
 break;
 
 case Depressed:
-PORTB=0x02;
+PORTB=0x01;
 break;
 
 case DepressedWait:
@@ -77,7 +77,7 @@ int main(){
    DDRA = 0x00; PORTA = 0xFF;
    DDRB = 0xFF; PORTB = 0x00;
     while (1) {
-    timerTick();
+    buttonMachine();
 	}
 	return 1;
 	}
