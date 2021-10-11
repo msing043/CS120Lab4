@@ -13,7 +13,7 @@ void buttonMachine() {
 	switch(SM) {
 	case Base:
 		SM=Begin;
-		Break;
+		break;
 	case Begin:
 		SM=Initializer;
 		break;
