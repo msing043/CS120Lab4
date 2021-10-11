@@ -39,7 +39,7 @@ void buttonMachine() {
 			SM=Reset;
 		}
 		else{
-			SM=Begin;
+			SM=Standby;
 		}
 		break;
 		
@@ -48,7 +48,7 @@ void buttonMachine() {
 	        	SM=Addition;
                 }
                 else{
-        	        SM=Reset;
+        	        SM=Standby;
                 }
                 break;
 			
@@ -57,7 +57,7 @@ void buttonMachine() {
     	            SM=Subtraction;
                 }
                 else{
-     	           SM=Reset;
+     	           SM=Standby;
                     }
                 break;
 	default:
