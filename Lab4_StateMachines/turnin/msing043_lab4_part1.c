@@ -55,14 +55,14 @@ PORTB=0x01;
 break;
 
 case Press:
-PORTB=0x02;
+PORTB=0x01;
 break;
 
 case PressWait:
 break;
 
 case Depressed:
-PORTB=0x01;
+PORTB=0x02;
 break;
 
 case DepressedWait:
