@@ -8,21 +8,21 @@
 #include "simAVRHeader.h"
 #endif
 
-enum SM_1{Initial,Start,Reset,Add,Subtract,AddOne,SubtractOne}SM;
-void timerTick() {
+enum stateMachine{Begin,Initializer,Reset,Addition,Subtraction,Increment,Decrement}SM;
+void buttonMachine() {
 	switch(SM) {
-	case Initial:
-		SM=Start;
+	case Begin:
+		SM=Initializer;
 		break;
-	case Start:
+	case Initializer:
 		if((PINA & 0x03)==0x03) {
                         SM=Reset;
                 }
 		else if((PINA & 0x01)==0x01) {
-			SM=AddOne;
+			SM=Increment;
 		}
 		else if((PINA & 0x02)==0x02) {
-                        SM=SubtractOne;
+                        SM=Decrement;
                 }
 		break;
 
@@ -31,66 +31,66 @@ void timerTick() {
 			SM=Reset;
 		}
 		else{
-			SM=Initial;
+			SM=Begin;
 		}
 		break;
 		
-	case Add:
+	case Addition:
 		if((PINA & 0x01)==0x01) {
-	        	SM=Add;
+	        	SM=Addition;
                 }
                 else{
-        	        SM=Initial;
+        	        SM=Begin;
                 }
                 break;
 
-	case AddOne:
-		SM=Add;
+	case Increment:
+		SM=Addition;
 		break;
 			
-	case Subtract:
+	case Subtraction:
                 if((PINA & 0x02)==0x02) {
-    	            SM=Subtract;
+    	            SM=Subtraction;
                 }
                 else{
-     	           SM=Initial;
+     	           SM=Begin;
                     }
                 break;
 	
-	case SubtractOne:
-		SM=Subtract;
+	case Decrement:
+		SM=Subtraction;
 		break;
 			
 	default:
-		SM=Initial;
+		SM=Begin;
 		break;
 	}
 	switch(SM){
-	case Initial:
+	case Begin:
 	PORTC=0x07;
 	break;
 
-	case Start:
+	case Initializer:
 	break;
 
-	case Add:
+	case Addition:
 	break;
 
-	case Subtract:
+	case Subtraction:
 	break;
 
-	case AddOne:
-	if(PORTC<0x09){
+	case Increment:
+	if(PORTC<=0x08){
         PORTC=PORTC+1;
 	}
-        break;
-		
-	case SubtractOne:
-	if(PORTC>0x00){ 
+        break;	
+			
+	case Decrement:
+	if(PORTC>=0x01){ 
         PORTC=PORTC-1;
 	}
         break;
-	
+			
 	case Reset:
 	PORTC=0x00;
 	break;
@@ -104,7 +104,7 @@ int main() {
     DDRA=0x00; PORTA=0xFF;
     DDRC=0xFF; PORTC=0x00;
     while (1) {
-	timerTick();
+	buttonMachine();
    	 }
    	 return 1;
 	}
