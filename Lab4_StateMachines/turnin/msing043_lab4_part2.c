@@ -28,7 +28,7 @@ void buttonMachine() {
                         SM=Decrement;
                 }
 		else{
-			SM=Begin;
+			SM=Base;
 		}
 		break;
 
