@@ -24,6 +24,9 @@ void buttonMachine() {
 		else if((PINA & 0x02)==0x02) {
                         SM=Decrement;
                 }
+		else{
+			SM=Begin;
+		}
 		break;
 
 	case Reset:
