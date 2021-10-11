@@ -8,27 +8,26 @@
 #include "simAVRHeader.h"
 #endif
 
-enum stateMachine{Base,Begin,Initializer,Reset,Addition,Subtraction,Increment,Decrement}SM;
+enum stateMachine{Begin,Initializer,Reset,Addition,Subtraction,Increment,Decrement}SM;
 void buttonMachine() {
 	switch(SM) {
-	case Base:
-		SM=Begin;
-		break;
+	
 	case Begin:
 		SM=Initializer;
 		break;
+			
 	case Initializer:
-		if((PINA & 0x03)==0x03) {
+		if((PINA&0x03)==0x03) {
                         SM=Reset;
                 }
-		else if((PINA & 0x01)==0x01) {
+		else if((PINA&0x01)==0x01) {
 			SM=Increment;
 		}
-		else if((PINA & 0x02)==0x02) {
+		else if((PINA&0x02)==0x02) {
                         SM=Decrement;
                 }
-		else{
-			SM=Base;
+		else if((PINA&0x00)=0x00){
+			SM=Begin;
 		}
 		break;
 
@@ -37,7 +36,7 @@ void buttonMachine() {
 			SM=Reset;
 		}
 		else{
-			SM=Base;
+			SM=Begin;
 		}
 		break;
 		
@@ -72,10 +71,8 @@ void buttonMachine() {
 		break;
 	}
 	switch(SM){
-	case Base:
-	PORTC=0x07;
-	break;
 	case Begin:
+	PORTC=0x07;
 	break;
 
 	case Initializer:
