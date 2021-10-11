@@ -26,7 +26,7 @@ void buttonMachine() {
 		else if((PINA&0x02)==0x02) {
                         SM=Decrement;
                 }
-		else if((PINA&0x00)=0x00){
+		else{
 			SM=Begin;
 		}
 		break;
