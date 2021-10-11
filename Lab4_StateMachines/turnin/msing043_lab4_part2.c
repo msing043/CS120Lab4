@@ -12,6 +12,7 @@ enum stateMachine{Begin,Standby,Initializer,Reset,Addition,Subtraction}SM;
 void buttonMachine() {
 	switch(SM) {
 	case Begin:
+		PORTB=0x07;
 		SM=Initializer;
 		break;
 	case Standby:
